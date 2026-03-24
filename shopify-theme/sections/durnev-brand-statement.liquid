@@ -1,0 +1,50 @@
+{% render 'durnev-base-styles' %}
+
+<section
+  id="durnev-brand-statement-{{ section.id }}"
+  class="durnev-brand-statement durnev-reveal"
+  aria-label="Про бренд"
+>
+  <div class="durnev-container">
+    <p class="durnev-brand-statement__text">
+      {{ section.settings.text | escape }}
+    </p>
+  </div>
+</section>
+
+{% stylesheet %}
+  .durnev-brand-statement {
+    padding: clamp(3rem, 6vw, 6rem) 0;
+    text-align: center;
+    background: var(--durnev-bg);
+  }
+
+  .durnev-brand-statement__text {
+    font-family: var(--durnev-font-display);
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 400;
+    color: var(--durnev-text-body);
+    line-height: 1.6;
+    max-width: 55ch;
+    margin: 0 auto;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Brand Statement",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Statement text",
+      "default": "Одяг, яким ти виділяєшся. Створений в Україні для тих, хто не боїться бути собою."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Statement"
+    }
+  ]
+}
+{% endschema %}

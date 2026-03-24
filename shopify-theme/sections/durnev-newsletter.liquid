@@ -1,0 +1,201 @@
+{% render 'durnev-base-styles' %}
+
+<section
+  id="durnev-newsletter-{{ section.id }}"
+  class="durnev-newsletter durnev-reveal"
+  aria-label="Підписка на розсилку"
+>
+  <div class="durnev-container durnev-newsletter__inner">
+    <div class="durnev-newsletter__text">
+      <h2 class="durnev-newsletter__title">{{ section.settings.heading | escape }}</h2>
+      {% if section.settings.subheading != blank %}
+        <p class="durnev-newsletter__sub">{{ section.settings.subheading | escape }}</p>
+      {% endif %}
+    </div>
+
+    {% comment %}
+      Shopify's built-in newsletter form.
+      Integrates with Shopify Email / Klaviyo / Mailchimp automatically.
+    {% endcomment %}
+    {% form 'customer', class: 'durnev-newsletter__form' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <label for="newsletter-email-{{ section.id }}" class="visually-hidden">Email</label>
+      <input
+        type="email"
+        name="contact[email]"
+        id="newsletter-email-{{ section.id }}"
+        class="durnev-newsletter__input"
+        placeholder="{{ section.settings.placeholder | escape }}"
+        required
+        autocomplete="email"
+        aria-label="Email адреса"
+        {% if form.posted_successfully? %} value="" {% endif %}
+      >
+      <button type="submit" class="durnev-newsletter__btn">
+        {% if form.posted_successfully? %}
+          {{ section.settings.success_text | escape }}
+        {% else %}
+          {{ section.settings.button_label | escape }}
+        {% endif %}
+      </button>
+    {% endform %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .durnev-newsletter {
+    background: var(--durnev-dark);
+    padding: clamp(3rem, 6vw, 5rem) 0;
+  }
+
+  .durnev-newsletter__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .durnev-newsletter__title {
+    font-family: var(--durnev-font-display);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #fff;
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  .durnev-newsletter__sub {
+    font-family: var(--durnev-font-body);
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.6);
+    margin-top: 0.75rem;
+    max-width: 40ch;
+  }
+
+  .durnev-newsletter__form {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .durnev-newsletter__input {
+    flex: 1;
+    min-width: 200px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    font-family: var(--durnev-font-body);
+    font-size: 0.95rem;
+    padding: 0.75rem 0;
+    outline: none;
+    transition: border-color var(--durnev-transition-fast);
+    border-radius: 0;
+  }
+
+  .durnev-newsletter__input::placeholder {
+    color: rgba(255,255,255,0.4);
+  }
+
+  .durnev-newsletter__input:focus {
+    border-bottom-color: rgba(255,255,255,0.8);
+  }
+
+  .durnev-newsletter__btn {
+    background: #fff;
+    color: var(--durnev-dark);
+    border-radius: 9999px;
+    padding: 0.875rem 2rem;
+    font-family: var(--durnev-font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    transition: all var(--durnev-transition-fast);
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+  }
+
+  .durnev-newsletter__btn:hover {
+    background: #e4e4e7;
+  }
+
+  .durnev-newsletter__btn:active {
+    transform: translateY(-1px) scale(0.98);
+  }
+
+  /* Visual states */
+  .durnev-newsletter__form--success .durnev-newsletter__btn {
+    background: #22c55e;
+    color: #fff;
+    pointer-events: none;
+  }
+
+  .durnev-newsletter__form--error .durnev-newsletter__input {
+    border-bottom-color: #ef4444;
+  }
+
+  .durnev-newsletter__error {
+    display: none;
+    font-size: 0.8rem;
+    color: #fca5a5;
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+
+  .durnev-newsletter__form--error .durnev-newsletter__error {
+    display: block;
+  }
+
+  @media (min-width: 768px) {
+    .durnev-newsletter__inner {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Будь в Курсі"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Підпишись на розсилку та отримай знижку 10% на перше замовлення"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Input placeholder",
+      "default": "Введи свій email"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Підписатись"
+    },
+    {
+      "type": "text",
+      "id": "success_text",
+      "label": "Success message",
+      "default": "Дякуємо!"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}

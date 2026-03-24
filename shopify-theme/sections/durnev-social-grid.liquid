@@ -1,0 +1,170 @@
+{% render 'durnev-base-styles' %}
+
+<section
+  id="durnev-social-{{ section.id }}"
+  class="durnev-social durnev-reveal"
+  aria-label="Спільнота DURNEV"
+>
+  <div class="durnev-container">
+    <div class="durnev-social__header">
+      <h2 class="durnev-section-title">{{ section.settings.heading | escape }}</h2>
+      {% if section.settings.handle != blank %}
+        <a href="{{ section.settings.handle_link }}" class="durnev-social__handle" target="_blank" rel="noopener">
+          {{ section.settings.handle | escape }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="durnev-social__grid" data-durnev-stagger>
+      {% for block in section.blocks %}
+        <a
+          href="{{ block.settings.link | default: '#' }}"
+          class="durnev-social__item durnev-stagger-child"
+          aria-label="Фото зі спільноти {{ forloop.index }}"
+          {{ block.shopify_attributes }}
+        >
+          {% if block.settings.image != blank %}
+            {{ block.settings.image | image_url: width: 400 | image_tag:
+              loading: 'lazy',
+              class: 'durnev-social__image',
+              widths: '200,300,400',
+              sizes: '(min-width: 1024px) 16vw, (min-width: 768px) 33vw, 50vw'
+            }}
+          {% else %}
+            <img
+              src="https://picsum.photos/seed/durnev-ig-{{ forloop.index }}/400/400"
+              alt="Фото з Instagram спільноти DURNEV"
+              class="durnev-social__image"
+              loading="lazy"
+              width="400"
+              height="400"
+            >
+          {% endif %}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .durnev-social {
+    padding: var(--durnev-section-pad) 0;
+    background: var(--durnev-bg);
+  }
+
+  .durnev-social__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2rem;
+  }
+
+  .durnev-social__handle {
+    font-family: var(--durnev-font-display);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--durnev-text-secondary);
+    transition: color var(--durnev-transition-fast);
+    text-decoration: none;
+  }
+
+  .durnev-social__handle:hover {
+    color: var(--durnev-text-primary);
+  }
+
+  .durnev-social__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .durnev-social__item {
+    display: block;
+    overflow: hidden;
+    border-radius: 0.25rem;
+  }
+
+  .durnev-social__image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    transition: filter 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .durnev-social__item:hover .durnev-social__image {
+    filter: brightness(1.08);
+    transform: scale(1.02);
+  }
+
+  @media (min-width: 768px) {
+    .durnev-social__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .durnev-social__grid {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Social Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Durnev Community"
+    },
+    {
+      "type": "text",
+      "id": "handle",
+      "label": "Social handle",
+      "default": "@durnevshop"
+    },
+    {
+      "type": "url",
+      "id": "handle_link",
+      "label": "Social link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "photo",
+      "name": "Photo",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Social Grid",
+      "blocks": [
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" }
+      ]
+    }
+  ]
+}
+{% endschema %}

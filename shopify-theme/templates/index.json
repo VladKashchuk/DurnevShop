@@ -1,0 +1,114 @@
+{
+  "sections": {
+    "hero": {
+      "type": "durnev-hero-split",
+      "settings": {
+        "overline": "Весна 2026",
+        "heading": "Нова Колекція",
+        "subheading": "Стиль, який не потребує пояснень. Лімітована лінійка мерчу, створена в Україні.",
+        "cta_label": "Shop Now",
+        "cta_link": "/collections/all"
+      }
+    },
+    "brand-statement": {
+      "type": "durnev-brand-statement",
+      "settings": {
+        "text": "Одяг, яким ти виділяєшся. Створений в Україні для тих, хто не боїться бути собою."
+      }
+    },
+    "featured-carousel": {
+      "type": "durnev-featured-carousel",
+      "settings": {
+        "heading": "Бестселери",
+        "link_label": "Shop All",
+        "link_url": "/collections/all",
+        "products_count": 8
+      }
+    },
+    "lifestyle-banner": {
+      "type": "durnev-lifestyle-banner",
+      "settings": {
+        "heading": "Весна 2026",
+        "cta_label": "Дивитись Колекцію",
+        "cta_link": "/collections/spring-2026"
+      }
+    },
+    "categories-grid": {
+      "type": "durnev-categories-grid",
+      "settings": {
+        "heading": "Shop by Category"
+      },
+      "blocks": {
+        "cat-1": {
+          "type": "category",
+          "settings": {
+            "name": "Худі та Світшоти",
+            "link": "/collections/hoodies"
+          }
+        },
+        "cat-2": {
+          "type": "category",
+          "settings": {
+            "name": "Футболки",
+            "link": "/collections/t-shirts"
+          }
+        },
+        "cat-3": {
+          "type": "category",
+          "settings": {
+            "name": "Аксесуари",
+            "link": "/collections/accessories"
+          }
+        }
+      },
+      "block_order": ["cat-1", "cat-2", "cat-3"]
+    },
+    "editorial-split": {
+      "type": "durnev-editorial-split",
+      "settings": {
+        "label": "Про Бренд",
+        "heading": "Одяг для тих, хто не мовчить",
+        "text": "DURNEV — це більше, ніж мерч. Це спільнота людей, які цінують чесність, свободу та український характер. Кожна річ створена з увагою до деталей та повагою до тих, хто її носить.",
+        "cta_label": "Дізнатись Більше",
+        "cta_link": "/pages/about"
+      }
+    },
+    "social-grid": {
+      "type": "durnev-social-grid",
+      "settings": {
+        "heading": "Durnev Community",
+        "handle": "@durnevshop",
+        "handle_link": "https://instagram.com/durnevshop"
+      },
+      "blocks": {
+        "ig-1": { "type": "photo" },
+        "ig-2": { "type": "photo" },
+        "ig-3": { "type": "photo" },
+        "ig-4": { "type": "photo" },
+        "ig-5": { "type": "photo" },
+        "ig-6": { "type": "photo" }
+      },
+      "block_order": ["ig-1", "ig-2", "ig-3", "ig-4", "ig-5", "ig-6"]
+    },
+    "newsletter": {
+      "type": "durnev-newsletter",
+      "settings": {
+        "heading": "Будь в Курсі",
+        "subheading": "Підпишись на розсилку та отримай знижку 10% на перше замовлення",
+        "placeholder": "Введи свій email",
+        "button_label": "Підписатись",
+        "success_text": "Дякуємо!"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "brand-statement",
+    "featured-carousel",
+    "lifestyle-banner",
+    "categories-grid",
+    "editorial-split",
+    "social-grid",
+    "newsletter"
+  ]
+}

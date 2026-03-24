@@ -1,0 +1,121 @@
+{% render 'durnev-base-styles' %}
+
+<section
+  id="durnev-lifestyle-{{ section.id }}"
+  class="durnev-lifestyle durnev-reveal"
+  aria-label="Lifestyle банер"
+>
+  <div class="durnev-lifestyle__image-wrap">
+    {% if section.settings.image != blank %}
+      {{ section.settings.image | image_url: width: 1800 | image_tag:
+        loading: 'lazy',
+        class: 'durnev-lifestyle__image',
+        widths: '800,1200,1800',
+        sizes: '100vw'
+      }}
+    {% else %}
+      <img
+        src="https://picsum.photos/seed/durnev-lifestyle/1800/900"
+        alt="Lifestyle фото колекції"
+        class="durnev-lifestyle__image"
+        loading="lazy"
+        width="1800"
+        height="900"
+      >
+    {% endif %}
+
+    <div class="durnev-lifestyle__overlay">
+      {% if section.settings.heading != blank %}
+        <h2 class="durnev-lifestyle__title">{{ section.settings.heading | escape }}</h2>
+      {% endif %}
+      {% if section.settings.cta_label != blank %}
+        <a href="{{ section.settings.cta_link }}" class="durnev-btn-outline-white">
+          {{ section.settings.cta_label | escape }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .durnev-lifestyle {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .durnev-lifestyle__image-wrap {
+    position: relative;
+  }
+
+  .durnev-lifestyle__image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+  }
+
+  .durnev-lifestyle__overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem);
+    background: linear-gradient(transparent 0%, rgba(0,0,0,0.45) 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+
+  .durnev-lifestyle__title {
+    font-family: var(--durnev-font-display);
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #fff;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .durnev-lifestyle__image {
+      aspect-ratio: 2 / 1;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Lifestyle Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Весна 2026"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Дивитись Колекцію"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lifestyle Banner"
+    }
+  ]
+}
+{% endschema %}
